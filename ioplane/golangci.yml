@@ -1,0 +1,52 @@
+# golangci-lint v2 configuration for the ioplane fork of Akvorado.
+# Maximum rule set: every linter is enabled except the ones listed below.
+# Upstream CI uses revive and staticcheck (Makefile); this file is an
+# additional gate, run on changed code with --new-from-rev=upstream/main.
+version: "2"
+
+run:
+  go: "1.27"
+  build-tags:
+    - ioplane_conformance
+
+linters:
+  default: all
+  disable:
+    # Deprecated in v2.14.0, replaced by the *_v5/_v2 variants kept enabled.
+    - exhaustruct
+    - gomodguard
+    - wsl
+    # Require a project allowlist/pattern; without one every import or
+    # file header is reported.
+    - depguard
+    - goheader
+  settings:
+    revive:
+      enable-all-rules: true
+    gocritic:
+      enable-all: true
+    govet:
+      enable-all: true
+    staticcheck:
+      checks: ["all"]
+    errcheck:
+      check-type-assertions: true
+      check-blank: true
+    gosec:
+      severity: low
+      confidence: low
+
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+    - goimports
+    - golines
+  settings:
+    goimports:
+      local-prefixes:
+        - akvorado
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
