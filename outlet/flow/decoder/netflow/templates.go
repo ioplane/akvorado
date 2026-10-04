@@ -32,8 +32,8 @@ type templatesAndOptions struct {
 	// DataDomains records the observation domains which sent data records,
 	// keyed by dataDomainKey(). Sampling rates are only borrowed from other
 	// domains that never sent data.
-	DataDomains map[uint64]bool
-	Applications  map[applicationKey]application
+	DataDomains  map[uint64]bool
+	Applications map[applicationKey]application
 }
 
 // templates is a mapping to one of netflow.TemplateRecord,
